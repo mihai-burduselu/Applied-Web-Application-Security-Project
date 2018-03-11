@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <title>AWAS Metropolia Project</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var username, password;
+            $("#submit").click(function () {
+                username = $("#username").val();
+                password = $("#password").val();
+
+                $.post("http://localhost:3000/login", { username: username, password: password }, function (data) {
+                    console.log(data);
+                    if (data.length == 0) {
+                        $("#message").html("Wrong credentials");
+                    } else {
+                        $("#message").html("Logged in. You will be redirected in 4 seconds.<br/>Your data: " + JSON.stringify(data));
+                        setTimeout(function () {
+                            window.location.href = "/";
+                        }, 4000);
+                    }
+                });
+            });
+
+            $("#register").click(function () {
+                window.location.href = "/register";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <div id="message"></div>
+    <input type="text" size="40" placeholder="Type your username" id="username" required>
+    <br />
+    <input type="text" size="40" placeholder="Type your password" id="password" required>
+    <br />
+    <input type="button" value="Submit" id="submit">
+
+    <br/>
+    <br/>
+    <input type="button" value="Go to register page" id="register">
+</body>
+
+</html>

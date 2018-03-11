@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>AWAS Metropolia Project</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var username, password, email, amount;
+            $("#submit").click(function () {
+                username = $("#username").val();
+                password = $("#password").val();
+                email = $("#email").val();
+                amount = $("#amount").val();
+
+                $.post("http://localhost:3000/register", { username: username, password: password, email: email, amount: amount }, function (data) {
+                    window.location.href = "/login";
+                });
+            });
+
+            $("#login").click(function () {
+                window.location.href = "/login";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Register</h1>
+    <input type="text" size="40" placeholder="Type your username" id="username">
+    <br />
+    <input type="password" size="40" placeholder="Type your password" id="password">
+    <br />
+    <input type="text" size="40" placeholder="Type your email" id="email">
+    <br />
+    <input type="number" placeholder="Type your amount" id="amount">
+    <br />
+    <input type="button" value="Submit" id="submit">
+
+    <br/>
+    <br/>
+    <input type="button" value="Go to login page" id="login">
+</body>
+
+</html>

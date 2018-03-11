@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <title>AWAS Metropolia Project</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                var dest = $("#dest").val();
+                var amountToTransfer = $("#amountToTransfer").val();
+
+                $.get("http://localhost:3000/transferMoney?dest=" + dest + "&amount=" + amountToTransfer, function (data) {
+                    console.log(data);
+                    getAmount();
+                });
+            });
+
+            $("#logout").click(function () {
+                window.location.href = "/logout";
+            });
+        });
+
+        function getAmount() {
+            $.get("http://localhost:3000/getAmount", function (data) {
+                $("#amount").html(data[0].amount);
+            });
+        }
+
+        $(document).ready(getAmount);
+    </script>
+</head>
+
+<body>
+    <h1>Your amount of money is:
+        <i id="amount"></i>
+    </h1>
+    <div id="message"></div>
+
+    <input type="text" size="40" placeholder="Destination" id="dest">
+    <br />
+    <input type="number" placeholder="Amount to transfer" id="amountToTransfer">
+    <br />
+    <input type="button" value="Transfer money" id="submit">
+
+    <br />
+    <br />
+    <input type="button" value="Log out" id="logout">
+</body>
+
+</html>
